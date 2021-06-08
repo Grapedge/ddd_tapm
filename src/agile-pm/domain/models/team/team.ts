@@ -12,7 +12,7 @@ export class Team extends AggregateRoot {
 
   private _productOwnerId: ProductOwnerId;
 
-  private _teamMembers = new Map<UserId, TeamMember>();
+  private _teamMembers = new Map<string, TeamMember>();
 
   constructor(
     productId: ProductId,
@@ -46,16 +46,19 @@ export class Team extends AggregateRoot {
    */
   addTeamMember(member: TeamMember) {
     Assert.forbidden(member.productId.equals(this.productId));
-    Assert.conflict(!this._teamMembers.has(member.userId), '该成员已存在');
-    this._teamMembers.set(member.userId, member);
+    Assert.conflict(
+      !this._teamMembers.has(member.userId.id),
+      `该成员 ${member.userId.id} 已存在`,
+    );
+    this._teamMembers.set(member.userId.id, member);
   }
 
   /**
    * 修改成员权限
    */
   changeTeamMemberRole(memberId: UserId, role: TeamMemberRole) {
-    Assert.notFound(this._teamMembers.has(memberId), '未找到团队成员');
-    const member = this._teamMembers.get(memberId);
+    Assert.notFound(this._teamMembers.has(memberId.id), '未找到团队成员');
+    const member = this._teamMembers.get(memberId.id);
     member.changeMemberRole(role);
   }
 
@@ -64,8 +67,8 @@ export class Team extends AggregateRoot {
    * @param memberId
    */
   removeTeamMember(memberId: UserId) {
-    Assert.notFound(this._teamMembers.has(memberId), '该成员不在团队中');
-    this._teamMembers.delete(memberId);
+    Assert.notFound(this._teamMembers.has(memberId.id), '该成员不在团队中');
+    this._teamMembers.delete(memberId.id);
   }
 
   get productId() {
@@ -81,13 +84,13 @@ export class Team extends AggregateRoot {
   }
 
   private set teamMembers(teamMembers: TeamMember[]) {
-    const map = new Map<UserId, TeamMember>();
+    const map = new Map<string, TeamMember>();
     for (const member of teamMembers) {
-      Assert.badRequest(
-        !map.has(member.userId),
-        `成员 ${member.userId} 已存在，请检查是否存在异常`,
+      Assert.conflict(
+        !map.has(member.userId.id),
+        `成员 ${member.userId.id} 已存在，请检查是否存在异常`,
       );
-      map.set(member.userId, member);
+      map.set(member.userId.id, member);
     }
     this._teamMembers = map;
   }
