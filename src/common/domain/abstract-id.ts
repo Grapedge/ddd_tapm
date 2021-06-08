@@ -20,7 +20,7 @@ export abstract class AbstractId implements Identity {
   protected abstract idName: string;
 
   equals(otherId: AbstractId) {
-    return this._id === otherId._id;
+    return this.idName === otherId.idName && this._id === otherId._id;
   }
 
   toString() {
