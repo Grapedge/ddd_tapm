@@ -1,5 +1,4 @@
 import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
-import { nanoid } from 'nanoid';
 import { Product } from 'src/agile-pm/domain/models/product/product';
 import { ProductOwnerId } from 'src/agile-pm/domain/models/product/product-owner-id';
 import { ProductRepository } from 'src/agile-pm/domain/models/product/product-repository';
