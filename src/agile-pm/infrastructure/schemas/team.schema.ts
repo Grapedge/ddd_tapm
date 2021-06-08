@@ -5,7 +5,7 @@ import { TeamMemberRole } from 'src/agile-pm/domain/models/team/team-member-role
 @Schema({ timestamps: true })
 export class TeamMemberDocument extends Document {
   @Prop({
-    unique: true,
+    index: true,
   })
   _id: string; // 用户 id
 
@@ -28,7 +28,6 @@ export class TeamDocument extends Document {
 
   @Prop({
     type: [TeamMemberSchema],
-    index: true,
   })
   // TODO: 创建视图，用以快速查询
   teamMembers: TeamMemberDocument[];

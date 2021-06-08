@@ -12,7 +12,7 @@ export class Team extends AggregateRoot {
 
   private _productOwnerId: ProductOwnerId;
 
-  private _teamMembers: Map<UserId, TeamMember>;
+  private _teamMembers = new Map<UserId, TeamMember>();
 
   constructor(
     productId: ProductId,
@@ -89,5 +89,6 @@ export class Team extends AggregateRoot {
       );
       map.set(member.userId, member);
     }
+    this._teamMembers = map;
   }
 }

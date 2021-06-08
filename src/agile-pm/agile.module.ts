@@ -6,6 +6,7 @@ import { AgileControllers } from './application/controllers';
 import { ProductRepoistoryToken } from './application/decorators/product-repository.decorator';
 import { TeamRepoistoryToken } from './application/decorators/teama-repository.decorator';
 import { AgileQueryHandlers } from './application/queries';
+import { AgileSagas } from './application/sagas';
 import { MongoProductRepository } from './infrastructure/repositories/mongo-product-repository';
 import { MongoTeamRepository } from './infrastructure/repositories/mongo-team-repository';
 import {
@@ -31,6 +32,7 @@ import { TeamName, TeamSchema } from './infrastructure/schemas/team.schema';
   providers: [
     ...AgileCommandHandlers,
     ...AgileQueryHandlers,
+    ...AgileSagas,
     {
       provide: ProductRepoistoryToken,
       useClass: MongoProductRepository,

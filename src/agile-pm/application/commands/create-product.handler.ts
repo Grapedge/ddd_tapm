@@ -1,4 +1,4 @@
-import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
+import { CommandHandler, EventPublisher, ICommandHandler } from '@nestjs/cqrs';
 import { nanoid } from 'nanoid';
 import { Product } from 'src/agile-pm/domain/models/product/product';
 import { ProductOwnerId } from 'src/agile-pm/domain/models/product/product-owner-id';
@@ -13,19 +13,23 @@ export class CreateProductHandler
   constructor(
     @InjectProductRepository()
     private readonly repository: ProductRepository,
+    private publisher: EventPublisher,
   ) {}
 
   async execute(command: CreateProductCommand): Promise<string> {
     const productId = this.repository.nextId();
-    const product = new Product(
-      productId,
-      new ProductOwnerId(command.productOwnerId),
-      command.name,
-      command.description,
-      new Date(),
+    const product = this.publisher.mergeObjectContext(
+      new Product(
+        productId,
+        new ProductOwnerId(command.productOwnerId),
+        command.name,
+        command.description,
+        new Date(),
+      ),
     );
     product.create();
     await this.repository.save(product);
+    product.commit();
     return productId.id;
   }
 }
