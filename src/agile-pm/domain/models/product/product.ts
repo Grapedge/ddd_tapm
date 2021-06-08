@@ -42,6 +42,7 @@ export class Product extends AggregateRoot {
         this.productOwnerId.id,
         this.name,
         this.description,
+        this.createdAt,
       ),
     );
   }

@@ -6,5 +6,6 @@ export class ProductCreatedEvent implements IEvent {
     public readonly productOwnerId: string,
     public readonly name: string,
     public readonly description: string,
+    public readonly createdAt: Date,
   ) {}
 }

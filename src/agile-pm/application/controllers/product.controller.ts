@@ -19,7 +19,7 @@ export class ProductController {
     @CurUser() userId: string,
     @Body() dto: CreateProductDto,
   ): Promise<CreateProductRes> {
-    const productId = await this.commandBus.execute(
+    const productId: string = await this.commandBus.execute(
       new CreateProductCommand(userId, dto.name, dto.description),
     );
     return { productId };
