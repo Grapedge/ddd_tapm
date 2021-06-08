@@ -1,7 +1,9 @@
 import { AggregateRoot } from '@nestjs/cqrs';
 import { ProductId } from 'src/agile-pm/domain/models/product/product-id';
 import { Assert } from 'src/common/libs/assert.class';
+import { CodeRepoCreatedEvent } from './code-repo-created';
 import { CodeRepoId } from './code-repo-id';
+import { CodeRepoRemovedEvent } from './code-repo-removed';
 
 export class CodeRepo extends AggregateRoot {
   private _codeRepoId: CodeRepoId;
@@ -23,6 +25,36 @@ export class CodeRepo extends AggregateRoot {
     this._productId = productId;
     this.homePageUrl = homePageUrl;
     this.gitUrl = gitUrl;
+  }
+
+  /**
+   * 创建代码仓库
+   */
+  create() {
+    this.apply(new CodeRepoCreatedEvent(this.productId.id, this.codeRepoId.id));
+  }
+
+  /**
+   * 更改首页 url
+   * @param url
+   */
+  updateHomePageUrl(url: string) {
+    this.homePageUrl = url;
+  }
+
+  /**
+   * 更改 git 仓库 url
+   * @param url
+   */
+  updateGitUrl(url: string) {
+    this.gitUrl = url;
+  }
+
+  /**
+   * 删除代码仓库
+   */
+  remove() {
+    this.apply(new CodeRepoRemovedEvent(this.productId.id, this.codeRepoId.id));
   }
 
   get codeRepoId() {
