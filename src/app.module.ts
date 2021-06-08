@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { CommandBus, CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@sdu-turing/config';
