@@ -38,7 +38,7 @@ export class CodeRepo extends AggregateRoot {
    * 更改首页 url
    * @param url
    */
-  updateHomePageUrl(url: string) {
+  bindHomePageUrl(url: string) {
     this.homePageUrl = url;
   }
 
@@ -46,7 +46,7 @@ export class CodeRepo extends AggregateRoot {
    * 更改 git 仓库 url
    * @param url
    */
-  updateGitUrl(url: string) {
+  bindGitUrl(url: string) {
     this.gitUrl = url;
   }
 
