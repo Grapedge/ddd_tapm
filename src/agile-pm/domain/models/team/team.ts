@@ -29,6 +29,14 @@ export class Team extends AggregateRoot {
    * 创建队伍
    */
   create() {
+    // 将自己添加到队伍中
+    this.teamMembers = [
+      new TeamMember(
+        this.productId,
+        new UserId(this.productOwnerId.id),
+        TeamMemberRole.ProductManager,
+      ),
+    ];
     this.apply(new TeamCreatedEvent(this.productId.id, this.productOwnerId.id));
   }
 

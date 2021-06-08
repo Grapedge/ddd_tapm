@@ -105,7 +105,7 @@ export class Product extends AggregateRoot {
   private set logo(url: string) {
     // URL 要么为空，要么为标准格式
     Assert.badRequest(
-      url.length !== 0 && /^https?:\/\//.test(url),
+      url.length === 0 || /^https?:\/\//.test(url),
       `Logo 地址不合法：${url}`,
     );
     this._logo = url;
