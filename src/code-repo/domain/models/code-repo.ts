@@ -31,7 +31,14 @@ export class CodeRepo extends AggregateRoot {
    * 创建代码仓库
    */
   create() {
-    this.apply(new CodeRepoCreatedEvent(this.productId.id, this.codeRepoId.id));
+    this.apply(
+      new CodeRepoCreatedEvent(
+        this.productId.id,
+        this.codeRepoId.id,
+        this.gitUrl,
+        this.homePageUrl,
+      ),
+    );
   }
 
   /**
@@ -78,7 +85,7 @@ export class CodeRepo extends AggregateRoot {
   }
 
   private set homePageUrl(url: string) {
-    Assert.badRequest(/^https?:\/\//.test(url));
+    Assert.badRequest(url.length === 0 || /^https?:\/\//.test(url));
     this._homePageUrl = url;
   }
 }

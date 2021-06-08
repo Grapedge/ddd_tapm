@@ -1,10 +1,10 @@
 import { Module } from '@nestjs/common';
-import { CommandBus, CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { ConfigModule } from '@sdu-turing/config';
 import { join } from 'path';
 import { AgileModule } from './agile-pm/agile.module';
+import { CodeRepoModule } from './code-repo/code-repo.module';
 import { AppConfig, AppConfigSchema } from './common/config/app.config';
 
 @Module({
@@ -24,6 +24,7 @@ import { AppConfig, AppConfigSchema } from './common/config/app.config';
       inject: [AppConfig],
     }),
     AgileModule,
+    CodeRepoModule,
   ],
   controllers: [],
   providers: [],
