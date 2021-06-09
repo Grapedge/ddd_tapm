@@ -26,3 +26,8 @@ export class CreateGitRepositoryDto {
   @IsString()
   homePageUrl: string;
 }
+
+export class CreateGitRepositoryRes {
+  @ApiProperty()
+  gitRepoId: string;
+}

@@ -41,7 +41,7 @@ export class CtbRolesGuard implements CanActivate {
       new FindContributorRoleQuery(projectId, contributorId),
     );
 
-    Assert.forbidden(ctbRole !== undefined, '用户必须是项目贡献者');
+    Assert.forbidden(ctbRole !== undefined, '项目不存在或用户不是项目的贡献者');
 
     // 所有贡献者均有权限
     // 或者用户是项目拥有者

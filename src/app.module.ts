@@ -8,6 +8,7 @@ import { ConfigModule } from '@sdu-turing/config';
 import { join } from 'path';
 import { AppConfig, AppConfigSchema } from './common/config/app.config';
 import { GatewayModule } from './gateway/gateway.module';
+import { GitRepositoryModule } from './git-repository/git-repository.module';
 import { ProjectModule } from './project/project.module';
 
 @Module({
@@ -36,6 +37,7 @@ import { ProjectModule } from './project/project.module';
     CqrsModule,
     GatewayModule,
     ProjectModule,
+    GitRepositoryModule,
   ],
   providers: [
     {
