@@ -1,3 +1,3 @@
 import { AbstractId } from 'src/common/domain/abstract-id';
 
-export class UserId extends AbstractId {}
+export class ProjectId extends AbstractId {}

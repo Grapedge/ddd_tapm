@@ -9,7 +9,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new ValidationPipe({
       transform: true,
-      exceptionFactory: () => new BadRequestException('参数非法'),
+      exceptionFactory: () => new BadRequestException('请求非法'),
     }),
   );
 
@@ -18,10 +18,11 @@ async function bootstrap() {
     .setDescription('山软图灵敏捷项目管理 API 文档')
     .setVersion('1.0')
     // 用于用户认证
-    .addBearerAuth()
+    .addBearerAuth(undefined, 'TAPM')
     // 用于图灵课程认证
-    .addBasicAuth()
-    .addTag('产品')
+    .addBasicAuth(undefined, '图灵综合教学平台')
+    .addTag('项目')
+    .addTag('资源库')
     .build();
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);

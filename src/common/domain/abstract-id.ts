@@ -1,10 +1,15 @@
+import { nanoid } from 'nanoid';
 import { Identity } from './identity';
 
 export abstract class AbstractId implements Identity {
   private _id: string;
 
-  constructor(id: string) {
-    this.id = id;
+  constructor(id?: string) {
+    if (!id) {
+      this.id = nanoid();
+    } else {
+      this.id = id;
+    }
   }
 
   get id() {
@@ -15,9 +20,9 @@ export abstract class AbstractId implements Identity {
     this._id = id;
   }
 
-  // 如果代码最小化，则 constructor.name 可能不存在
-  // 因此每个类需要手动输入需要展示的 Id 名称
-  protected abstract idName: string;
+  private get idName() {
+    return (this as any).constructor.name;
+  }
 
   equals(otherId: AbstractId) {
     return this.idName === otherId.idName && this._id === otherId._id;
