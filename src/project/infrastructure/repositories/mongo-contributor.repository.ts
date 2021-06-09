@@ -18,10 +18,10 @@ export class MongoContributorRepository implements ContributorRepository {
 
   async findByfProject(
     projectId: ProjectId,
-    contId: ContributorId,
+    ctbId: ContributorId,
   ): Promise<Contributor | undefined> {
     const doc = await this.contributorModel.findOne({
-      contributorId: contId.id,
+      contributorId: ctbId.id,
       projectId: projectId.id,
     });
     if (!doc) {
@@ -53,7 +53,7 @@ export class MongoContributorRepository implements ContributorRepository {
 
   private documentToModel(doc: ContributorDocument) {
     const projectId = new ProjectId(doc.projectId);
-    const contId = new ContributorId(doc.contributorId);
-    return new Contributor(projectId, contId, doc.role);
+    const ctbId = new ContributorId(doc.contributorId);
+    return new Contributor(projectId, ctbId, doc.role);
   }
 }

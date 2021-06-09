@@ -1,11 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  ParseIntPipe,
-  Post,
-  Query,
-} from '@nestjs/common';
+import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
   ApiCreatedResponse,
@@ -13,6 +6,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { ThrottlerGuard } from '@nestjs/throttler';
 import { ApiTapmAuth } from 'src/common/decorators/api-tapm-auth.decorator';
 import { CurUser } from 'src/common/decorators/cur-user.decorator';
 import { QueryManyDto } from 'src/common/dto/query-many.dto';
@@ -24,6 +18,7 @@ import { CreateProjectDto, CreateProjectRes } from './dto/create-project.dto';
 @ApiTags('项目')
 @ApiTapmAuth()
 @Controller('project')
+@UseGuards(ThrottlerGuard)
 export class ProjectController {
   constructor(
     private readonly commandBus: CommandBus,

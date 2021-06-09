@@ -6,7 +6,7 @@ import { ContributorAdded } from './events/contributor-added';
 import { ContributorQuit } from './events/contributor-quit';
 
 export class Contributor extends AggregateRoot {
-  private _contId: ContributorId;
+  private _ctbId: ContributorId;
 
   private _projectId: ProjectId;
 
@@ -14,11 +14,11 @@ export class Contributor extends AggregateRoot {
 
   constructor(
     projectId: ProjectId,
-    contId: ContributorId,
+    ctbId: ContributorId,
     role: ContributorRole,
   ) {
     super();
-    this._contId = contId;
+    this._ctbId = ctbId;
     this._projectId = projectId;
     this.role = role;
   }
@@ -53,7 +53,7 @@ export class Contributor extends AggregateRoot {
   remove() {}
 
   get contributorId() {
-    return this._contId;
+    return this._ctbId;
   }
 
   get projectId() {

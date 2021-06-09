@@ -29,7 +29,7 @@ export class MongoProjectQuery implements ProjectQuery {
     current = 1,
     pageSize = 10,
   ): Promise<QueryManyRes<ProjectData>> {
-    const [total, contDocs] = await Promise.all([
+    const [total, ctbDocs] = await Promise.all([
       this.contributorModel.countDocuments({
         contributorId: userId,
       }),
@@ -46,7 +46,7 @@ export class MongoProjectQuery implements ProjectQuery {
     ]);
 
     // 拿到项目数据
-    const data = contDocs
+    const data = ctbDocs
       .map(({ project }) => project)
       .filter(Boolean)
       .map(this.documentToData);

@@ -1,6 +1,8 @@
 import { Module } from '@nestjs/common';
+import { CqrsModule } from '@nestjs/cqrs';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { ThrottlerModule } from '@nestjs/throttler';
 import { ConfigModule } from '@sdu-turing/config';
 import { join } from 'path';
 import { AppConfig, AppConfigSchema } from './common/config/app.config';
@@ -23,6 +25,14 @@ import { ProjectModule } from './project/project.module';
       }),
       inject: [AppConfig],
     }),
+    ThrottlerModule.forRootAsync({
+      useFactory: (appConfig: AppConfig) => ({
+        ttl: appConfig.throttleTtl,
+        limit: appConfig.throttleLimit,
+      }),
+      inject: [AppConfig],
+    }),
+    CqrsModule,
     GatewayModule,
     ProjectModule,
   ],

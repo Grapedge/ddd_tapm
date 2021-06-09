@@ -17,7 +17,7 @@ export class ContributorSagas {
           new AddControbutorCommand(
             event.projectId,
             event.projectOwnerId,
-            ContributorRole.ProjectManager,
+            ContributorRole.ProjectOwner,
           ),
       ),
     );

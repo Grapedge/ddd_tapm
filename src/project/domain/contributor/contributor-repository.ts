@@ -5,7 +5,7 @@ import { ContributorId } from './contributor-id';
 export interface ContributorRepository {
   findByfProject(
     projectId: ProjectId,
-    contId: ContributorId,
+    ctbId: ContributorId,
   ): Promise<Contributor | undefined>;
 
   save(cont: Contributor): Promise<void>;

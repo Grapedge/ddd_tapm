@@ -3,6 +3,7 @@ import {
   ConflictException,
   ForbiddenException,
   NotFoundException,
+  UnauthorizedException,
 } from '@nestjs/common';
 
 /**
@@ -33,5 +34,9 @@ export class Assert {
 
   static internal(condition: boolean, message = '内部数据异常') {
     this.assert(condition, () => new ConflictException(message));
+  }
+
+  static unauthorized(condition: boolean, message = '当前用户未认证') {
+    this.assert(condition, () => new UnauthorizedException(message));
   }
 }

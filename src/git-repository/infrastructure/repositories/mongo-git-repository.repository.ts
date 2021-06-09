@@ -56,14 +56,14 @@ export class MongoGitRepoRepository implements GitRepositoryRepository {
   private documentToModel(doc: GitRepositoryDocument) {
     const gitRepoId = new GitRepositoryId(doc._id);
     const projectId = new ProjectId(doc.projectId);
-    const contId = new ContributorId(doc.creatorId);
+    const ctbId = new ContributorId(doc.creatorId);
     return new GitRepository(
       projectId,
       gitRepoId,
       doc.name,
       doc.description,
       new GitRemote(doc.gitUrl, doc.homePageUrl),
-      contId,
+      ctbId,
     );
   }
 }

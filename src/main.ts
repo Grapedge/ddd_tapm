@@ -2,6 +2,7 @@ import { BadRequestException, Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
+import { CtbRolesGuard } from './common/guards/ctb-roles.guard';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
