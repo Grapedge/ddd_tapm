@@ -1,7 +1,7 @@
 import { Body, Controller, Param, Post } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import { ApiTags } from '@nestjs/swagger';
-import { AuthCtbRoles } from 'src/common/decorators/auth-ctb-roles.decorator';
+import { CtbRoles } from 'src/common/decorators/ctb-roles.decorator';
 import { CurUser } from 'src/common/decorators/cur-user.decorator';
 import { CreateGitRepositoryCommand } from 'src/git-repository/application/commands/create-git-repository.command';
 import { CreateGitRepositoryDto } from './dto/create-git-repository.dto';
@@ -15,7 +15,7 @@ export class GitRepositoryController {
   ) {}
 
   @Post()
-  @AuthCtbRoles()
+  @CtbRoles()
   async createGitRepository(
     @CurUser() ctbId: string,
     @Param('projectId') projectId: string,
