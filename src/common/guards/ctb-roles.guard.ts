@@ -44,7 +44,8 @@ export class CtbRolesGuard implements CanActivate {
     Assert.forbidden(ctbRole !== undefined, '用户必须是项目贡献者');
 
     // 所有贡献者均有权限
-    if (requiredRoles.length === 0) {
+    // 或者用户是项目拥有者
+    if (requiredRoles.length === 0 || ctbRole === CtbRole.ProjectOwner) {
       return true;
     }
 
@@ -53,6 +54,7 @@ export class CtbRolesGuard implements CanActivate {
       '贡献者无权限操作，请联系项目拥有者',
     );
 
+    (request as any).ctbRole = ctbRole;
     // 验证个权限真麻烦
     return true;
   }

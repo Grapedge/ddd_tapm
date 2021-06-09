@@ -35,3 +35,7 @@ lerna-debug.log*
 
 # Env
 .env
+
+# VS Code Counter
+# 项目实训凑行数用的
+.VSCodeCounter

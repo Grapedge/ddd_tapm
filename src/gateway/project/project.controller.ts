@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post, Query, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { CommandBus, QueryBus } from '@nestjs/cqrs';
 import {
   ApiCreatedResponse,
@@ -6,9 +6,9 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { ThrottlerGuard } from '@nestjs/throttler';
 import { ApiTapmAuth } from 'src/common/decorators/api-tapm-auth.decorator';
 import { CurUser } from 'src/common/decorators/cur-user.decorator';
+import { TapmAuth } from 'src/common/decorators/tapm-auth.decorator';
 import { QueryManyDto } from 'src/common/dto/query-many.dto';
 import { CreateProjectCommand } from 'src/project/application/commands/create-project.command';
 import { FindMyProjectsQuery } from 'src/project/application/queries/find-my-projects.query';
@@ -18,7 +18,6 @@ import { CreateProjectDto, CreateProjectRes } from './dto/create-project.dto';
 @ApiTags('项目')
 @ApiTapmAuth()
 @Controller('project')
-@UseGuards(ThrottlerGuard)
 export class ProjectController {
   constructor(
     private readonly commandBus: CommandBus,
@@ -52,6 +51,7 @@ export class ProjectController {
   }
 
   @Get()
+  @TapmAuth()
   @ApiOperation({
     description: '查找我的项目',
   })
